@@ -1,13 +1,13 @@
 * **GlobalProtect Version Tracker**
 
-  * This repository maintains a JSON file with metadata about the latest available GlobalProtect client and gateway versions for Palo Alto Networks.
+  * This repository maintains a JSON file with metadata about the latest available GlobalProtect client versions for Palo Alto Networks firewalls.
 
 * **Overview**
 
   1. A local automation (not shipped here) does the heavy lifting:
 
      1. Connects via the GlobalProtect API or XML interface
-     2. Pulls version info for both client installers and gateway firmware
+     2. Pulls version info for both client installers
      3. Updates a local JSON file with that data
      4. Commits & pushes the changes back to this GitHub repo
 
@@ -28,21 +28,18 @@
 
   ```json
   {
-    "component": "string (e.g. 'client-win', 'gateway-firmware')",
-    "version":   "string (e.g. '5.3.2')",
-    "size-kb":   "string (numeric, kilobytes)",
-    "released-on": "string (format: 'YYYY/MM/DD HH:mm:ss')",
-    "latest":    "string ('yes' or 'no')",
-    "sha256":    "string | null"
+    "version":      "string (e.g. '6.2.8-c317')",
+    "size-kb":      "string (numeric, kilobytes)",
+    "released-on":  "string (format: 'YYYY/MM/DD HH:mm:ss')",
+    "latest":       "string ('yes' or 'no')",
+    "sha256":       "string | null",
+    "release-type": "string (either '', 'Base', or 'Preferred')"
   }
   ```
 
-  * **component**
-
-    * Which piece—GlobalProtect client for Windows/Mac/Linux or gateway firmware
   * **version**
 
-    * Version identifier
+    * Version identifier, including build or patch suffix
   * **size-kb**
 
     * Package size in KB (as a string)
@@ -54,7 +51,10 @@
     * Flag marking the newest drop
   * **sha256**
 
-    * Checksum for integrity (nullable if we couldn’t grab it)
+    * Checksum for integrity (nullable if unavailable)
+  * **release-type**
+
+    * Release classification: empty string for regular, "Base" for core builds, or "Preferred" for recommended builds
 
 ---
 
@@ -63,20 +63,28 @@
   ```json
   [
     {
-      "component":    "client-win",
-      "version":      "5.3.2",
-      "size-kb":      "452312",
-      "released-on":  "2025/08/20 14:22:10",
-      "latest":       "yes",
-      "sha256":       "a1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef"
+      "version":      "6.2.8-c317",
+      "size-kb":      "253936",
+      "released-on":  "2025/09/09 09:00:09",
+      "latest":       "no",
+      "sha256":       "a62529aa4656453c7914bf367152e611c90e6f23cb6603e6a49b4d8f57bd321f",
+      "release-type": ""
     },
     {
-      "component":    "gateway-firmware",
-      "version":      "10.2.1",
-      "size-kb":      "1120456",
-      "released-on":  "2025/07/15 09:30:05",
+      "version":      "6.2.8-c263",
+      "size-kb":      "253288",
+      "released-on":  "2025/07/17 07:35:16",
       "latest":       "no",
-      "sha256":       null
+      "sha256":       "f3cd71c1906a4de67f98f2487a4b4056fce979ab8f2e2cf50575bb2c56422b93",
+      "release-type": "Preferred"
+    },
+    {
+      "version":      "6.3.0",
+      "size-kb":      "231471",
+      "released-on":  "2024/06/13 10:50:28",
+      "latest":       "no",
+      "sha256":       "67a83ff5206d5b4a2aaf13bce3212de270cabe6204a4df1561c35aa4c1bc0f44",
+      "release-type": "Base"
     }
   ]
   ```
@@ -91,21 +99,24 @@
      # Load JSON
      $gpVersions = Get-Content -Raw -Path '.\globalprotect_versions.json' | ConvertFrom-Json
 
-     # Pick the latest client build
-     $latestClient = $gpVersions |
-       Where-Object {
-         $_.component -eq 'client-win' -and
-         $_.latest    -eq 'yes'
-       }
+     # Get the Preferred build if available, else latest
+     $preferred = $gpVersions |
+       Where-Object { $_."release-type" -eq 'Preferred' }
 
-     Write-Host "Latest GlobalProtect Windows client is $($latestClient.version)"
+     if ($preferred) {
+       $chosen = $preferred
+     } else {
+       $chosen = $gpVersions | Where-Object { $_.latest -eq 'yes' }
+     }
+
+     Write-Host "Selected GlobalProtect build is $($chosen.version)"
      ```
 
 ---
 
 * **Validation & Integrity**
 
-  1. Make sure every entry has all required fields and correct data types.
+  1. Ensure each entry has all required fields and correct data types.
   2. If `sha256` is provided, verify the installer/image matches.
   3. Use tools like:
 
