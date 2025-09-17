@@ -111,6 +111,6 @@
 
      * `jq`
      * `ajv`
-     * PowerShell’s `Test-FileHash`
+     * PowerShell’s `Get-FileHash`
 
 > Kept up to date for clear version visibility—so you can automate rolls, alerts, and avoid nasty surprises. Stay ahead, stay protected!
