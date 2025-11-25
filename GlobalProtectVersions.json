@@ -1,8 +1,24 @@
 [
   {
+    "version": "6.3.3-c828",
+    "size-kb": "257411",
+    "released-on": "2025/11/20 05:25:29",
+    "latest": "no",
+    "sha256": "82780683b767903c059f69c81258ec48bf08c84cdd7be5a6f236379a4e863191",
+    "release-type": ""
+  },
+  {
+    "version": "6.2.8-c416",
+    "size-kb": "254527",
+    "released-on": "2025/11/18 04:32:50",
+    "latest": "no",
+    "sha256": "b3371b134ce5488f7321a80ba15315bf240587b53a14ed0869d7cdb46cea93eb",
+    "release-type": ""
+  },
+  {
     "version": "6.3.3-c711",
     "size-kb": "257074",
-    "released-on": "2025/09/22 18:02:59",
+    "released-on": "2025/09/22 16:02:59",
     "latest": "no",
     "sha256": "e04f49aac3aeea2b27f5e3aca9b433f9641b3feed8854a7da62f47f5a085c84f",
     "release-type": ""
