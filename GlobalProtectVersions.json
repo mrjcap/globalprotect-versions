@@ -1,5 +1,13 @@
 [
   {
+    "version": "6.3.3-c842",
+    "size-kb": "257798",
+    "released-on": "2025/12/17 04:07:54",
+    "latest": "no",
+    "sha256": "fc45389241bdf764daa1b66cc2ca4c0e918e4494592bdbf30ffbd8fd7fb00d47",
+    "release-type": ""
+  },
+  {
     "version": "6.2.8-c431",
     "size-kb": "254615",
     "released-on": "2025/12/11 09:54:15",
