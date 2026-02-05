@@ -124,4 +124,27 @@
      * `ajv`
      * PowerShell’s `Get-FileHash`
 
+---
+
+* **Automated endoflife.date Updates**
+
+  A GitHub Actions workflow automatically creates pull requests to update [endoflife.date](https://github.com/endoflife-date/endoflife.date) whenever new GlobalProtect versions are pushed to this repository.
+
+  1. On every push to `GlobalProtectVersions.json`, the workflow runs `.github/scripts/update_gp_endoflife.py`
+  2. The script compares versions in the JSON with the current state of [`products/pan-gp.md`](https://github.com/endoflife-date/endoflife.date/blob/master/products/pan-gp.md) in the upstream repository
+  3. If a newer version is found for any release cycle, and no open `[pan-gp]` PR already exists, it creates a PR with the updated version and release date
+  4. If an open PR already exists, it skips to avoid duplicates
+
+  * **Manual trigger**
+
+    ```bash
+    gh workflow run update-endoflife.yml --repo mrjcap/globalprotect-versions
+    ```
+
+  * **Required secret**
+
+    | Secret | Scope | Purpose |
+    |---|---|---|
+    | `ENDOFLIFE_PAT` | `public_repo` | Push to fork and create PRs against upstream |
+
 > Kept up to date for clear version visibility—so you can automate rolls, alerts, and avoid nasty surprises. Stay ahead, stay protected!
