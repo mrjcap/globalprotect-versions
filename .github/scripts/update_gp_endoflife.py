@@ -38,10 +38,19 @@ def get_release_cycle(version_str):
     return match.group(1) if match else None
 
 
+def _normalize_key(key):
+    """Convert PascalCase to kebab-case lowercase.
+
+    Examples: "Version" -> "version", "ReleasedOn" -> "released-on"
+    """
+    return re.sub(r"(?<=[a-z])(?=[A-Z])", "-", key).lower()
+
+
 def load_json_versions(json_path):
     """Load GlobalProtectVersions.json and find the latest version per release cycle.
 
     Returns dict: {"6.3": {"version": "6.3.3-c842", "date": "2025-12-17"}, ...}
+    Accepts both PascalCase keys (from PowerShell) and kebab-case keys.
     """
     raw = open(json_path, "rb").read()
     if raw[:2] in (b"\xff\xfe", b"\xfe\xff"):
@@ -49,6 +58,9 @@ def load_json_versions(json_path):
     else:
         text = raw.decode("utf-8-sig")
     entries = json.loads(text)
+
+    # Normalize keys: PascalCase ("Version") -> kebab-case ("version")
+    entries = [{_normalize_key(k): v for k, v in e.items()} for e in entries]
 
     cycles = {}
     for entry in entries:
