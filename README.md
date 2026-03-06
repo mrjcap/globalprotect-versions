@@ -1,6 +1,8 @@
 * **GlobalProtect Version Tracker**
 
   * This repository maintains a JSON file with metadata about the latest available GlobalProtect client versions for Palo Alto Networks firewalls.
+  
+[![Update endoflife.date GlobalProtect](https://github.com/mrjcap/globalprotect-versions/actions/workflows/update-endoflife.yml/badge.svg)](https://github.com/mrjcap/globalprotect-versions/actions/workflows/update-endoflife.yml)
 
 * **Overview**
 
