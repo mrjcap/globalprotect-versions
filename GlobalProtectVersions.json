@@ -1,5 +1,13 @@
 [
   {
+    "Version": "6.3.3-c1046",
+    "SizeKB": "361815",
+    "ReleasedOn": "2026/06/12 21:00:16",
+    "Latest": "no",
+    "SHA256": "641cdb48ce672d6c16629481c7eaa26b924a4b5cba22bf8b63a0265891685ab6",
+    "ReleaseType": ""
+  },
+  {
     "Version": "6.3.3-c1016",
     "SizeKB": "281426",
     "ReleasedOn": "2026/05/20 10:19:05",
