@@ -1,5 +1,13 @@
 [
   {
+    "Version": "6.2.8-c982",
+    "SizeKB": "276406",
+    "ReleasedOn": "2026/06/17 09:55:44",
+    "Latest": "no",
+    "SHA256": "004056baae1e4914c8ffc89d035f7f43880c66784b3c389b7cfad12836b2c089",
+    "ReleaseType": ""
+  },
+  {
     "Version": "6.3.3-c1046",
     "SizeKB": "361815",
     "ReleasedOn": "2026/06/12 21:00:16",
