@@ -1,5 +1,21 @@
 [
   {
+    "Version": "6.3.3-c1195",
+    "SizeKB": "440366",
+    "ReleasedOn": "2026/10/01 14:18:25",
+    "Latest": "no",
+    "SHA256": "02e5c4c344912096f2b5121101b0cda86afe9e7198de887e219f20d0d6602837",
+    "ReleaseType": ""
+  },
+  {
+    "Version": "6.2.8-c1079",
+    "SizeKB": "434099",
+    "ReleasedOn": "2026/10/01 14:13:44",
+    "Latest": "no",
+    "SHA256": "830700a75cf0f74784b8b707660da4f9d27320d8a1d7d8f3fc27f81ca257a88f",
+    "ReleaseType": ""
+  },
+  {
     "Version": "6.3.3-c1121",
     "SizeKB": "369106",
     "ReleasedOn": "2026/08/12 11:18:30",
